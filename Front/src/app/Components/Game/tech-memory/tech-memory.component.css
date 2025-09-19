@@ -1,0 +1,292 @@
+.game-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(45deg, #9b59b6, #e74c3c);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  margin: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.sound-icon {
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sound-icon:hover {
+  transform: scale(1.1);
+}
+
+.timer, .score {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.icons-area {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  background: rgba(255, 235, 59, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  min-height: 200px;
+}
+
+.icon-container {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 3px dashed transparent;
+}
+
+.icon-container:hover {
+  transform: scale(1.05);
+  border-color: rgba(155, 89, 182, 0.5);
+}
+
+.icon-container.matched {
+  opacity: 0.6;
+  transform: scale(0.95);
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.2);
+}
+
+.icon-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Estilos para diferentes tipos de iconos - puedes personalizar estos colores */
+.android-icon { background: #a4c639; }
+.pantalla-icon { background: #3498db; }
+.teclado-icon { background: #9b59b6; }
+.instagram-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.facebook-icon { background: #3b5998; }
+.torre-icon { background: #34495e; }
+.youtube-icon { background: #ff0000; }
+.tiktok-icon { background: #000; }
+.papelera-icon { background: #95a5a6; }
+.chrome-icon { background: linear-gradient(45deg, #4285f4, #ea4335, #fbbc05, #34a853); }
+.cargador-icon { background: #2c3e50; }
+.carpeta-icon { background: #f39c12; }
+
+.icon-text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.text-area {
+  background: rgba(189, 195, 199, 0.9);
+  padding: 20px;
+  margin: 0 20px 20px 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.text-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.text-label {
+  background: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: grab;
+  user-select: none;
+  font-weight: bold;
+  color: #2c3e50;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.text-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-color: #3498db;
+}
+
+.text-label:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 235, 59, 0.6);
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 60px;
+  height: 60px;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 40px;
+  height: 40px;
+  top: 15%;
+  right: 10%;
+  animation-delay: 1s;
+}
+
+.circle-3 {
+  width: 80px;
+  height: 80px;
+  top: 60%;
+  left: 2%;
+  animation-delay: 2s;
+}
+
+.circle-4 {
+  width: 50px;
+  height: 50px;
+  bottom: 20%;
+  right: 5%;
+  animation-delay: 3s;
+}
+
+.circle-5 {
+  width: 30px;
+  height: 30px;
+  top: 30%;
+  right: 20%;
+  animation-delay: 4s;
+}
+
+.circle-6 {
+  width: 70px;
+  height: 70px;
+  bottom: 30%;
+  left: 10%;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(-10px) rotate(240deg); }
+}
+
+.control-buttons {
+  text-align: center;
+  padding: 20px;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(231, 76, 60, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(0px);
+}
+
+/* Efectos de arrastrar */
+.text-label.dragging {
+  opacity: 0.7;
+  transform: rotate(5deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .icons-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .icon-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon-placeholder {
+    width: 50px;
+    height: 50px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .text-labels {
+    flex-direction: column;
+    align-items: center;
+  }
+}

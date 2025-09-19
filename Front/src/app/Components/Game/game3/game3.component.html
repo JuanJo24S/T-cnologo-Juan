@@ -1,0 +1,80 @@
+<div class="container">
+  <!-- Vista del juego -->
+  <div *ngIf="!juegoTerminado">
+    <h1 class="titulo">{{ preguntaActualData.titulo }}</h1>
+
+    <img
+      [src]="preguntaActualData.imagen"
+      [alt]="'Imagen de la pregunta ' + (preguntaActual + 1)"
+      class="imagen">
+
+    <div class="pregunta">{{ preguntaActualData.pregunta }}</div>
+
+    <div class="opciones">
+      <div
+        *ngFor="let opcion of preguntaActualData.opciones"
+        class="opcion"
+        [class.seleccionada]="esOpcionSeleccionada(opcion)"
+        (click)="seleccionarRespuesta(opcion)">
+        {{ opcion }}
+      </div>
+    </div>
+
+    <div class="navegacion">
+      <button
+        class="btn-anterior"
+        (click)="preguntaAnterior()"
+        [disabled]="esPrimeraPregunta">
+        Anterior
+      </button>
+
+      <button
+        *ngIf="!esUltimaPregunta"
+        class="btn-siguiente"
+        (click)="preguntaSiguiente()"
+        [disabled]="!preguntaActualRespondida">
+        Siguiente
+      </button>
+
+      <button
+        *ngIf="esUltimaPregunta"
+        class="btn-finalizar"
+        (click)="finalizarJuego()"
+        [disabled]="!todasLasPreguntasRespondidas">
+        Finalizar
+      </button>
+    </div>
+
+    <div class="progreso">
+      Pregunta {{ preguntaActual + 1 }} de {{ preguntas.length }}
+    </div>
+  </div>
+
+  <!-- Vista de resultados -->
+  <div *ngIf="juegoTerminado">
+    <h1 class="titulo">¡Juego Terminado!</h1>
+
+    <div class="resultado">
+      <h2>Respondiste {{ contarRespuestasCorrectas() }} de {{ preguntas.length }} correctamente</h2>
+
+      <div
+        *ngFor="let pregunta of preguntas; let i = index"
+        class="resumen-respuesta"
+        [class.correcta]="esRespuestaCorrecta(i)"
+        [class.incorrecta]="!esRespuestaCorrecta(i)">
+
+        <span class="icono">{{ esRespuestaCorrecta(i) ? '✓' : '✗' }}</span>
+
+        <div>
+          <p><strong>{{ pregunta.pregunta }}</strong></p>
+          <p>Tu respuesta: {{ respuestas[i] }}</p>
+          <p>Respuesta correcta: {{ pregunta.respuestaCorrecta }}</p>
+        </div>
+      </div>
+
+      <button class="btn-reiniciar" (click)="reiniciarJuego()">
+        Jugar de nuevo
+      </button>
+    </div>
+  </div>
+</div>

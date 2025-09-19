@@ -1,0 +1,55 @@
+<div class="game-container">
+  <!-- Header con tiempo y puntuación -->
+  <div class="header">
+    <div class="sound-icon">🔊</div>
+    <div class="timer">Tiempo: {{ tiempo }} segundos</div>
+    <div class="score">Puntuacion: {{ puntuacion }}</div>
+  </div>
+
+  <!-- Área de iconos -->
+  <div class="icons-area">
+    <div class="icons-grid">
+      <div
+        *ngFor="let item of gameItems"
+        class="icon-container"
+        [class.matched]="item.matched"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event, item)"
+      >
+        <div class="icon-placeholder" [class]="item.iconClass">
+          <!-- Aquí irán tus imágenes personalizadas -->
+          <span class="icon-text">{{ item.name.charAt(0) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área de texto -->
+  <div class="text-area">
+    <div class="text-labels">
+      <div
+        *ngFor="let name of shuffledNames"
+        class="text-label"
+        draggable="true"
+        (dragstart)="onDragStart($event, name)"
+      >
+        {{ name }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Decoraciones -->
+  <div class="decorations">
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-circle circle-3"></div>
+    <div class="decoration-circle circle-4"></div>
+    <div class="decoration-circle circle-5"></div>
+    <div class="decoration-circle circle-6"></div>
+  </div>
+
+  <!-- Botones de control -->
+  <div class="control-buttons">
+    <button class="btn-primary" (click)="resetGame()">Reiniciar Juego</button>
+  </div>
+</div>

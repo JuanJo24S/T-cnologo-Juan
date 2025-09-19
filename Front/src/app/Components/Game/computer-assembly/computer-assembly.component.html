@@ -1,0 +1,103 @@
+<div class="game-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="sound-button" (click)="playSound()">🔊</div>
+    <div class="game-info">
+      <h2>Nivel {{ nivel }}<sup>do</sup> Arma el Computador como Juancho</h2>
+      <div class="timer">Tiempo: {{ formatTime(tiempo) }}</div>
+    </div>
+  </div>
+
+  <!-- Instrucciones -->
+  <div class="instructions">
+    ¡Juancho desarmo su computador! Ayúdalo a armarlo nuevamente arrastrando las partes a su lugar correcto.
+  </div>
+
+  <!-- Área principal del juego -->
+  <div class="game-area">
+    <!-- Escritorio/Mesa donde se colocan las partes -->
+    <div class="desk-area">
+      <!-- Superficie del escritorio -->
+      <div class="desk-surface">
+        <!-- Zonas de drop invisibles -->
+        <div
+          *ngFor="let zone of dropZones"
+          class="drop-zone"
+          [style.left.px]="zone.x"
+          [style.top.px]="zone.y"
+          [style.width.px]="zone.width"
+          [style.height.px]="zone.height"
+          [class.occupied]="zone.occupied"
+          (dragover)="onDragOver($event, zone)"
+          (drop)="onDrop($event, zone)"
+        >
+        </div>
+
+        <!-- Partes colocadas en el escritorio -->
+        <div
+          *ngFor="let part of computerParts"
+          [ngStyle]="getPartStyle(part)"
+          class="placed-part"
+          [class.placed]="part.placed"
+        >
+          <div class="part-placeholder" [class]="part.id + '-placed'" *ngIf="part.placed">
+            <!-- Aquí irán tus imágenes de las partes colocadas -->
+            {{ part.name }}
+          </div>
+        </div>
+
+        <!-- Elementos decorativos del escritorio -->
+        <div class="desk-leg desk-leg-left"></div>
+        <div class="desk-leg desk-leg-right"></div>
+
+        <!-- Juancho (personaje) -->
+        <div class="character">
+          <div class="character-body"></div>
+          <div class="character-head"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel lateral con las partes disponibles -->
+    <div class="parts-panel">
+      <div class="parts-container">
+        <div
+          *ngFor="let part of computerParts"
+          class="computer-part"
+          [class.dragging]="currentDraggedItem === part.id"
+          [class.placed]="part.placed"
+          draggable="true"
+          (dragstart)="onDragStart($event, part.id)"
+          (dragend)="onDragEnd()"
+          [style.display]="part.placed ? 'none' : 'flex'"
+        >
+          <div class="part-icon" [class]="part.id + '-icon'">
+            <!-- Aquí irán tus imágenes personalizadas -->
+            <span class="part-text">{{ part.name.charAt(0) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles del juego -->
+  <div class="game-controls">
+    <button class="btn-reset" (click)="resetGame()" *ngIf="gameStarted">
+      Reiniciar
+    </button>
+    <button class="btn-start" (click)="startGame()" *ngIf="!gameStarted">
+      Comenzar
+    </button>
+  </div>
+
+  <!-- Overlay de victoria -->
+  <div class="victory-overlay" *ngIf="gameCompleted">
+    <div class="victory-content">
+      <h3>¡Excelente trabajo!</h3>
+      <p>Has ayudado a Juancho a armar su computador</p>
+      <button class="btn-next-level" (click)="resetGame()">
+        Jugar de nuevo
+      </button>
+    </div>
+  </div>
+</div>
