@@ -1,0 +1,81 @@
+<div class="container">
+  <header>
+    <h1>¿Qué Componente Es?</h1>
+    <div class="level-display">{{ currentLevelData.title }}</div>
+    <div class="score-container">
+      <i class="fas fa-star"></i>
+      <span>{{ score }}</span> Puntos
+    </div>
+  </header>
+
+  <div class="level-buttons">
+    <button
+      *ngFor="let level of levels; let i = index"
+      class="level-btn"
+      [class.active]="i === currentLevel"
+      (click)="loadLevel(i)">
+      Nivel {{ i + 1 }}
+    </button>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" [style.width.%]="progressPercentage"></div>
+  </div>
+
+  <div class="game-content" *ngIf="!levelCompleted">
+    <div class="image-container">
+      <img
+        [src]="currentQuestionData.image"
+        alt="Componente de computadora"
+        class="component-image">
+    </div>
+
+    <div class="question-container">
+      <div class="question">
+        <i class="fas fa-question-circle"></i>
+        <p>{{ currentQuestionData.question }}</p>
+      </div>
+
+      <div class="options">
+        <div
+          *ngFor="let option of currentQuestionData.options; let i = index"
+          class="option"
+          [class.correct]="answered && option.correct"
+          [class.incorrect]="answered && selectedOption === i && !option.correct"
+          (click)="checkAnswer(i, option.correct)">
+          <i class="fas" [class]="getOptionIcon(i)"></i>
+          <span>{{ option.text }}</span>
+        </div>
+      </div>
+
+      <div class="feedback" [class]="feedbackClass">
+        {{ feedbackMessage }}
+      </div>
+    </div>
+  </div>
+
+  <div class="explanation" [class.show]="showExplanation">
+    <h3><i class="fas fa-lightbulb"></i> Explicación:</h3>
+    <p>{{ currentQuestionData.explanation }}</p>
+  </div>
+
+  <div class="completed-screen" *ngIf="levelCompleted">
+    <div class="trophy">🏆</div>
+    <h2>¡Nivel Completado!</h2>
+    <p>Has completado este nivel con <span>{{ score }}</span> puntos.</p>
+    <p>{{ levelCompleteMessage }}</p>
+    <button class="next-btn" (click)="nextLevel()">
+      <i class="fas fa-arrow-right"></i>
+      {{ currentLevel < levels.length - 1 ? 'Siguiente Nivel' : 'Reiniciar' }}
+    </button>
+  </div>
+
+  <div class="controls" *ngIf="!levelCompleted">
+    <button class="hint-btn" (click)="showHint()" [disabled]="answered">
+      <i class="fas fa-lightbulb"></i> Pista
+    </button>
+    <button class="next-btn" (click)="nextQuestion()" [disabled]="!answered">
+      <i class="fas fa-arrow-right"></i> Siguiente Pregunta
+    </button>
+  </div>
+</div>
