@@ -1,0 +1,37 @@
+:host{
+  display: block; /* asegura que ocupe espacio */
+  min-height: 100vh; /* que abarque toda la pantalla */
+  background-image: url('/assets/img/backgrounds/seleccionador.jpg');
+  background-size: cover;   /* ajusta la imagen a la pantalla */
+  background-position: center; /* centrada */
+  background-repeat: no-repeat;
+}
+
+.select-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.select-level{
+  min-width: 400px;
+  min-height: 400px;
+}
+
+.kids {
+  background-image: url('/assets/img/seleccionador/edad4-7.png');
+  background-repeat: no-repeat;
+  background-size: contain; /* o cover / 100% 100% */
+  background-position: center;
+}
+
+.junior {
+  background-image: url('/assets/img/seleccionador/edad-5.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+h3 {
+  margin: 0; /* quita el espacio de arriba */
+  padding-top: 1rem; /* opcional si quieres espacio pero controlado */
+}

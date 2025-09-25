@@ -1,1 +1,41 @@
-<p>register works!</p>
+<div class="form-container">
+  <div class="form-wrapper">
+    <h2 class="form-title">Bienvenido</h2>
+
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="user-form">
+      <div class="input-group">
+        <label for="nickname" class="input-label">Apodo o Nombre</label>
+        <input
+          type="text"
+          id="nickname"
+          name="nickname"
+          [(ngModel)]="nickname"
+          #nicknameCtrl="ngModel"
+          required
+          minlength="2"
+          class="form-input"
+          placeholder="Ingresa tu apodo o nombre"
+          [class.error]="nicknameCtrl.invalid && nicknameCtrl.touched"
+        />
+
+        <div class="error-messages"
+             *ngIf="nicknameCtrl.invalid && nicknameCtrl.touched">
+          <small *ngIf="nicknameCtrl.errors?.['required']" class="error-text">
+            El apodo o nombre es requerido
+          </small>
+          <small *ngIf="nicknameCtrl.errors?.['minlength']" class="error-text">
+            Debe tener al menos 2 caracteres
+          </small>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [routerLink]="['/select-level']"
+        [disabled]="form.invalid">
+        Continuar
+      </button>
+    </form>
+  </div>
+</div>
